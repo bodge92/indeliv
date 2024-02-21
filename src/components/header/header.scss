@@ -1,0 +1,35 @@
+@import "@styles/variables";
+
+.header {
+  color: white;
+  background-color: #ffffff;
+  padding: 12px 32px 12px 32px;
+  border-bottom: solid 1px #eaecf0;
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-avatar {
+  height: 40px; /* Adjust based on your preference */
+  border-radius: 50%; /* This makes the image round */
+}
+
+.user-info {
+  text-align: left;
+  .user-name {
+    font-weight: bold;
+    color: black;
+  }
+
+  .user-organization {
+    color: #767676;
+    font-size: 12px;
+  }
+  span {
+    display: block;
+  }
+}

@@ -1,0 +1,32 @@
+.invoice {
+  .nav-links {
+    gap: 25px;
+    padding: 0;
+    .active {
+      border-bottom: solid 2px #0080fc;
+      .navbar-link {
+        color: #0080fc !important;
+      }
+    }
+    .navbar-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #767676;
+      padding: 20px;
+      cursor: pointer;
+    }
+  }
+  .navbar {
+    border: solid 1px #e6e8ec;
+    border-bottom: 1px solid #eaecf0;
+    padding: 0px 20px 0px 20px;
+    background: #e6e8ec;
+    border-radius: 8px 8px 0px 0px;
+  }
+
+  .content {
+    padding: 0px 20px 0px 20px;
+    width: 100%;
+  }
+}
