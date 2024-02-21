@@ -1,5 +1,4 @@
 {
-  "homepage":"https://indeliv.github.io/indeliv-frontend/",
   "name": "indelive",
   "version": "0.1.0",
   "private": true,
@@ -29,8 +28,6 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
@@ -51,8 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^6.1.1"
   }
 }
