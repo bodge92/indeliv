@@ -52,7 +52,7 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
     const [sortConfig, setSortConfig] = useState<{
         field: keyof CollectionInterface;
         direction: SortDirection;
-    } | null>(null);
+    } | null>(SortDirection.ASC as any);
 
     useEffect(() => {
         setInvoices(initialData);
@@ -104,7 +104,7 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
 
     return (
         <>
-            <table className="table-stripe-rounded shadowed">
+            <table className="table-stripe-rounded">
                 <thead>
                 <tr>
                     {
@@ -112,7 +112,6 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
                             <input type="checkbox" className="checkbox"/>
                         </th>
                     }
-
                     {Object.keys(initialData[0])
                         .slice(0, -1)
                         .map((key, index) => (
@@ -124,9 +123,25 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
                         <img src={"/assets/Icon/Up-Down Arrow.svg"} alt="User Avatar"/>
                       </span>
                                         <div className="dropdown-content">
-                                            <a href="#">Option 1</a>
-                                            <a href="#">Option 2</a>
-                                            <a href="#">Option 3</a>
+                                            <a href="#atoz" className={'dropdown-item'}>
+                                                <img src={"/assets/Icon/SortAtoZ.svg"} alt="sort a to z"/>
+                                                {
+                                                    sortConfig?.field === key && sortConfig.direction === SortDirection.ASC ?
+                                                        <img src={"/assets/Icon/SortActive.svg"} alt="sort z to a"/>
+                                                        : <span></span>
+                                                }
+                                            </a>
+                                            <a href="#ztoa" className={'dropdown-item'}
+                                            >
+                                                <img src={"/assets/Icon/SortZtoA.svg"} alt="sort z to a"/>
+
+                                                {
+                                                    sortConfig?.field === key && sortConfig.direction === SortDirection.DESC ?
+                                                        <img src={"/assets/Icon/SortActive.svg"} alt="sort z to a"/>
+                                                        : <span></span>
+                                                }
+
+                                            </a>
                                         </div>
                                     </div>
                                 )}
@@ -136,7 +151,9 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
                 </thead>
                 <tbody>
                 {invoices.map((invoice, index) => (
-                    <tr key={index}>
+                    <tr key={index}
+                        className={'custom-table'}
+                    >
                         {
                             showCheckbox && <td>
                                 <input
