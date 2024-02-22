@@ -1,6 +1,8 @@
 import InVoicesCard from "@/components/custom/InvoiceCard";
 import InvoiceTable from "@/components/custom/InvoiceTable";
 import React, { useState } from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "@/stores";
 
 type InvoiceData = {
   invoiceNo: string;
@@ -53,64 +55,58 @@ const sortData = (
   });
 };
 const Deliveries: React.FC = () => {
-  const [invoices, setInvoices] = useState(initialData);
-  const [selectAllChecked, setSelectAllChecked] = useState(false);
-  const [sortConfig, setSortConfig] = useState<{
-    field: keyof InvoiceData;
-    direction: SortDirection;
-  } | null>(null);
 
-  const handleSort = (field: keyof InvoiceData) => {
-    let direction = SortDirection.ASC;
-    if (sortConfig && sortConfig.field === field) {
-      direction =
-        sortConfig.direction === SortDirection.ASC
-          ? SortDirection.DESC
-          : SortDirection.NONE;
-    }
-    const sortedData = sortData(invoices, field, direction);
-    setInvoices(sortedData);
-    setSortConfig({ field, direction });
-  };
+  const {query} = useSelector((state: RootState) => state.search);
 
-  const handleSelectAllCheckbox = (checked: boolean) => {
-    setSelectAllChecked(checked);
-    const updatedInvoices = invoices.map((invoice: InvoiceData) => {
-      return { ...invoice, checked: checked };
-    });
-    setInvoices(updatedInvoices);
-  };
-
-  const handleCheckboxChange = (index: number) => {
-    const newInvoices = [...invoices];
-    newInvoices[index].checked = !newInvoices[index].checked;
-    setInvoices(newInvoices);
-    setSelectAllChecked(newInvoices.every((invoice) => invoice.checked));
-  };
+  const filteredInvoices = initialData.filter((invoice) => {
+    return (
+        invoice.invoiceNo.toLowerCase().includes(query.toLowerCase()) ||
+        invoice.buyer.toLowerCase().includes(query.toLowerCase())
+    );
+  });
 
   return (
-    <>
-           <div
-                className="d-xs-none d-none d-md-block"
-            >
-                <InvoiceTable  initialData={initialData}
-                              showDropdown={true}
-                              showCheckbox={true}
-                />
-            </div>
+      <>
+        <div
+            className="d-xs-none d-none d-md-block"
+        >
+          <InvoiceTable initialData={filteredInvoices}
+                        showDropdown={true}
+                        showCheckbox={true}
+          />
+        </div>
+        <div
+            className="d-xs-block mt-4 d-block d-md-none"
+        >
+          {filteredInvoices.map((data, index) => (
+              <InVoicesCard
+                  key={index}
+                  initialData={data}
+
+              />
+          ))
+          }
+        </div>
+        <div
+            className="fixed-bottom d-flex justify-content-center align-items-center p-3 create-batch-button-anchor "
+        >
+          <button
+              className="custom-button-mobile btn btn-primary w-auto w-full fw-bold d-flex align-items-center rounded-pill gap-6">
+
             <div
-                className="d-xs-block mt-4 d-block d-md-none"
+                className={"number-selected"}
             >
-                {initialData.map((data, index) => (
-                    <InVoicesCard
-                        key={index}
-                        initialData={data}
-                        
-                    />
-                ))
-                }
+                            <span>
+                                {
+                                  // selectedInvoices.length
+                                    filteredInvoices.map((invoice) => invoice.checked).filter(Boolean).length
+                                }
+                            </span>
             </div>
-    </>
+            <span>Create Batch</span>
+          </button>
+        </div>
+      </>
   );
 };
 

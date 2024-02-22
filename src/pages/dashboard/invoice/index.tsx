@@ -7,6 +7,8 @@ import {NavLink} from "react-router-dom";
 import Collections from "@/components/invoice/collections";
 import Completed from "@/components/invoice/completed";
 import Details from "@/components/invoice/details";
+import {useDispatch} from "react-redux";
+import {setQuery} from "@/stores/slices/searchSlice";
 
 const tabs = [
     {
@@ -43,10 +45,14 @@ interface InvoiceProps {
 }
 
 const Invoice: React.FC<InvoiceProps> = ({setIsShow}) => {
+    const dispatch = useDispatch();
+    const handleSearch = (newQuery: string) => {
+        dispatch(setQuery(newQuery));
+    };
     const location = useLocation();
     const pathSegments = location.pathname.split("/");
     const lastSegment = pathSegments[pathSegments.length - 1];
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -92,6 +98,7 @@ const Invoice: React.FC<InvoiceProps> = ({setIsShow}) => {
                             <input
                                 type="text"
                                 placeholder="Search By Name or Invoice Number"
+                                onChange={(e) => handleSearch(e.target.value)}
                             />
                         </div>
                         {(lastSegment === "deliveries" || lastSegment === "invoices") && (
@@ -125,27 +132,26 @@ const Invoice: React.FC<InvoiceProps> = ({setIsShow}) => {
                 }
             </div>
 
-            {(lastSegment === "deliveries" || lastSegment === "invoices") && (
-                <div
-                    // fixé en bas de la page
-                    className="fixed-bottom d-flex justify-content-center align-items-center p-3 create-batch-button-anchor "
-                >
-                    <button
-                        className="custom-button-mobile btn btn-primary w-auto w-full fw-bold d-flex align-items-center rounded-pill gap-6">
+            {/*{(lastSegment === "deliveries" || lastSegment === "invoices") && (*/}
+            {/*    <div*/}
+            {/*        className="fixed-bottom d-flex justify-content-center align-items-center p-3 create-batch-button-anchor "*/}
+            {/*    >*/}
+            {/*        <button*/}
+            {/*            className="custom-button-mobile btn btn-primary w-auto w-full fw-bold d-flex align-items-center rounded-pill gap-6">*/}
 
-                        <div
-                            className={"number-selected"}
-                        >
-                            <span>
-                                {
-                                    1
-                                }
-                            </span>
-                        </div>
-                        <span>Create Batch</span>
-                    </button>
-                </div>
-            )}
+            {/*            <div*/}
+            {/*                className={"number-selected"}*/}
+            {/*            >*/}
+            {/*                <span>*/}
+            {/*                    {*/}
+            {/*                        1*/}
+            {/*                    }*/}
+            {/*                </span>*/}
+            {/*            </div>*/}
+            {/*            <span>Create Batch</span>*/}
+            {/*        </button>*/}
+            {/*    </div>*/}
+            {/*)}*/}
 
         </div>
     );

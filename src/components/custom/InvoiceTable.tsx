@@ -58,6 +58,12 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
         setInvoices(initialData);
     }, [initialData]);
 
+    if (!initialData || initialData.length === 0 || initialData.length === undefined) {
+        return <div
+            className="text-center p-5"
+        >No data found</div>;
+    }
+
     const sortData = (
         data: (CollectionInterface | CompletedInterface | DeliveryInterface)[],
         field: keyof CollectionInterface,
@@ -74,6 +80,7 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
             return 0;
         });
     };
+
 
     const handleSort = (field: keyof CollectionInterface) => {
         let direction = SortDirection.ASC;
@@ -171,7 +178,7 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
                                     {
                                         cellIndex === 0 ?
                                             <Link className={'text-black text-decoration-none'}
-                                                  to={`/invoices/detail`}>{invoice[key as keyof typeof invoice]}</Link>
+                                                  to={`/dashboard/invoices/details`}>{invoice[key as keyof typeof invoice]}</Link>
                                             :
 
                                             cellIndex !== Object.keys(invoice).length - 1 && <>{invoice[key as keyof typeof invoice]}</>}

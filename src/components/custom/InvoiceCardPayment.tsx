@@ -15,8 +15,6 @@ const InVoicesCardPayment: React.FC<CollectionsProps> = ({initialData}) => {
         amount,
     } = initialData;
 
-
-
     return (
         <div className={`card rounded-3 mb-3`}
              

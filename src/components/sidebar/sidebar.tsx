@@ -1,6 +1,8 @@
 import React from "react";
 import "./sidebar.scss";
 import {NavLink, useLocation} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setQuery} from "@/stores/slices/searchSlice";
 
 interface SidebarProps {
     setIsShow: Function;
@@ -60,12 +62,15 @@ const menus = [
 ];
 const Sidebar: React.FC<SidebarProps> = ({setIsShow}) => {
     const location = useLocation();
+    const dispatch = useDispatch();
+    const handleSearch = (newQuery: string) => {
+        dispatch(setQuery(newQuery));
+    };
     return (
         <>
             <div
                 className="d-flex flex-column sidebar border border-top-0 border-start-0 menu-container flex-shrink-0 p-4
 d-none d-md-block
-
                 "
                 style={{width: "300px"}}
             >
@@ -111,6 +116,7 @@ d-none d-md-block
                             className="w-100 bg-gray"
                             type="text"
                             placeholder="Search By Name or Invoice Number"
+                            onChange={(e) => handleSearch(e.target.value)}
                         />
                     </div>
                 </div>

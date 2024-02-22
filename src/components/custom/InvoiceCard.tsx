@@ -9,9 +9,10 @@ import {
 
 interface CollectionsProps {
     initialData: CollectionInterface | CompletedInterface | DeliveryInterface;
+    showCheckbox?: boolean;
 }
 
-const InVoicesCard: React.FC<CollectionsProps> = ({initialData}) => {
+const InVoicesCard: React.FC<CollectionsProps> = ({initialData, showCheckbox = true}) => {
     const {
         invoiceNo,
         date,
@@ -29,6 +30,7 @@ const InVoicesCard: React.FC<CollectionsProps> = ({initialData}) => {
         setIsChecked(!isChecked);
     };
 
+
     return (
         <div
             className={`card rounded-3 mb-3 ${
@@ -40,59 +42,67 @@ const InVoicesCard: React.FC<CollectionsProps> = ({initialData}) => {
             }}
         >
             <div className="card-body">
-                <div className="d-flex justify-content-between align-items-s gap-3">
+                <div className="d-flex justify-content-between align-items-s gap-2">
                     <div className="d-flex flex-column justify-content-between gap-2">
-                        <div className="d-flex justify-content-start gap-3">
-                            <div className="custom-control custom-checkbox">
-                                <input
-                                    type="checkbox"
-                                    className="custom-control-input"
-                                    id={`checkbox`}
-                                    checked={isChecked}
-                                    onChange={handleCheckboxChange}
-                                />
+                        <div className={`d-flex justify-content-start`}>
+                            <div className="custom-control custom-checkbox m-0">
+                                {
+                                    showCheckbox && (
+                                        <input
+                                            type="checkbox"
+                                            className="custom-control-input pr-3"
+                                            id={`checkbox`}
+                                            checked={isChecked}
+                                            onChange={handleCheckboxChange}
+                                        />
+                                    )
+                                }
                                 <label
-                                    className="custom-control-label"
+                                    className="custom-control-label m-0"
                                     htmlFor={`checkbox`}
                                 ></label>
                             </div>
-                            <b className="custom-control-label">{invoiceNo}</b>
+                            <b className="custom-control-label"
+                               style={{
+                                   marginLeft: showCheckbox ? "10px" : "0",
+                               }}
+                            >{invoiceNo}</b>
                         </div>
-                        <p className="text-color">{buyer}</p>
+                        <p className="text-color m-0">{buyer}</p>
                     </div>
                     <div className="d-flex flex-column justify-content-between gap-2">
                         <Link
-                            className="text-12"
+                            className="text-12 fw-bold m-0"
                             style={{color: "#0080FC"}}
                             to={"/dashboard/invoices/details"}
                         >
                             View details
                         </Link>
-                        <p className="text-12">{amount}</p>
+                        <p className="text-12 m-0">{amount}</p>
                     </div>
                 </div>
-                <hr className={isChecked ? "border-primary" : "border-dark"}/>
+                <hr className={isChecked ? "border-white m-1" : "border-dark m-1"}/>
                 <div className="d-flex justify-content-start">
-                    <div className="w-100  border-end">
-                        <p className="text-gray text-center">Company</p>
-                        <p className="text-center fw-bold text-black">{company}</p>
+                    <div className={`w-100 ${isChecked ? "border-end border-white" : "border-end border-gray"}`}>
+                        <p className="text-gray text-center m-0 text-12">Company</p>
+                        <p className="text-center fw-bold text-black m-0 text-12">{company}</p>
                     </div>
                     {due && (
-                        <div className="w-100 border-end">
-                            <p className="text-gray text-center">Due</p>
-                            <p className="text-center fw-bold text-black">{due}</p>
+                        <div className={`w-100 ${isChecked ? "border-end border-white" : "border-end border-gray"}`}>
+                            <p className="text-gray text-center m-0 text-12">Due</p>
+                            <p className="text-center fw-bold text-black m-0 text-12">{due}</p>
                         </div>
                     )}
                     <div
-                        className={due ? "w-100 border-end" : "w-100"}
+                        className={`w-100 ${isChecked && due ? "border-end border-white" : due ? "border-end border-active" : "border-none"}`}
                     >
-                        <p className="text-gray text-center">Date</p>
-                        <p className="text-center fw-bold text-black">{date}</p>
+                        <p className="text-gray text-center m-0 text-12">Date</p>
+                        <p className="text-center fw-bold text-black m-0 text-12">{date}</p>
                     </div>
                     {overdueBy && (
                         <div className="w-100">
-                            <p className="text-gray text-center">Overdue By</p>
-                            <p className="text-center fw-bold text-black">{overdueBy}</p>
+                            <p className="text-gray text-center m-0 text-12">Overdue By</p>
+                            <p className="text-center fw-bold text-black m-0 text-12">{overdueBy}</p>
                         </div>
                     )}
                 </div>

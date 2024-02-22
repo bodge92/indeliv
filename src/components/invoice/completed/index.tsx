@@ -1,6 +1,8 @@
 import InVoicesCard from "@/components/custom/InvoiceCard";
 import InvoiceTable from "@/components/custom/InvoiceTable";
 import React from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "@/stores";
 
 type InvoiceData = {
   invoiceNo: string;
@@ -41,6 +43,8 @@ const sortData = (
   field: keyof InvoiceData,
   direction: SortDirection
 ) => {
+
+
   if (direction === SortDirection.NONE) return [...data];
   return [...data].sort((a, b) => {
     if (a[field] < b[field]) {
@@ -53,12 +57,22 @@ const sortData = (
   });
 };
 const Completed: React.FC = () => {
+
+  const {query} = useSelector((state: RootState) => state.search);
+
+  const filteredInvoices = initialData.filter((invoice) => {
+    return (
+        invoice.invoiceNo.toLowerCase().includes(query.toLowerCase()) ||
+        invoice.buyer.toLowerCase().includes(query.toLowerCase())
+    );
+  });
+
   return (
     <>
                <div
                 className="d-xs-none d-none d-md-block"
             >
-                <InvoiceTable  initialData={initialData}
+                <InvoiceTable  initialData={filteredInvoices}
                               showDropdown={false}
                               showCheckbox={false}
 
@@ -67,11 +81,11 @@ const Completed: React.FC = () => {
             <div
                 className="d-xs-block mt-4 d-block d-md-none"
             >
-                {initialData.map((data, index) => (
+                {filteredInvoices.map((data, index) => (
                     <InVoicesCard
                         key={index}
                         initialData={data}
-                        
+                        showCheckbox={false}
                     />
                 ))
                 }
