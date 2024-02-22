@@ -15,20 +15,25 @@ const Reset: React.FC = () => {
         <img className="image-logo" src={"/assets/image/logo.svg"} alt="" />
       </div>
       <div className="d-flex justify-content-center w-sm-50 w-100 p-3">
-        <div>
-          <h1 className="titleH1 fs-lg-28 fw-bold">Reset your password</h1>
-          <p className="text14">
-            Strong passwords include numbers, letters, and puctation marks.
-          </p>
-          <form>
-            <div className="form-group mb-3">
-              <div className="position-relative">
-                <label className="font-size-14" htmlFor="exampleInputPassword1">
+        <div className="content-login d-flex flex-column  w-100">
+          <div className="custom-div d-flex flex-column">
+            <h1 className="heading-1 fs-lg-28 m-0">
+              Reset your password
+            </h1>
+            <p className="custom-paragraph m-0">
+              Strong passwords include numbers, letters, and puctation marks.
+            </p>
+          </div>
+
+          <form className="form d-flex flex-column">
+            <div className="form-group ">
+              <div className="position-relative custom-form-group form-group d-flex flex-column">
+                <label className="custom-label" htmlFor="exampleInputPassword1">
                   Enter New password
                 </label>
                 <input
                   type="password"
-                  className="rounded form-control"
+                  className="rounded custom-input form-control"
                   id="exampleInputPassword1"
                   placeholder="********"
                 />
@@ -40,13 +45,13 @@ const Reset: React.FC = () => {
               </div>
             </div>
             <div className="form-group mb-3">
-              <div className="position-relative">
+              <div className="position-relative custom-form-group form-group d-flex flex-column">
                 <label className="labeL" htmlFor="exampleInputPassword1">
                   Confirm new password
                 </label>
                 <input
                   type="password"
-                  className="rounded form-control"
+                  className="rounded custom-input form-control"
                   id="exampleInputPassword1"
                   placeholder="********"
                 />
@@ -58,14 +63,12 @@ const Reset: React.FC = () => {
               </div>
             </div>
           </form>
-          <div className="boutton">
-            <button
-              type="button"
-              className="rounded btn btn-primary btn-lg w-100"
-            >
-              Reset Password
-            </button>
-          </div>
+          <button
+            type="button"
+            className="custom-btn-log w-100"
+          >
+            Reset Password
+          </button>
         </div>
       </div>
     </div>

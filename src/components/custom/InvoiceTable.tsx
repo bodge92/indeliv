@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 
 export interface CollectionInterface {
     invoiceNo: string;
@@ -107,11 +108,11 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
                 <thead>
                 <tr>
                     {
-                        showCheckbox &&  <th>
-                        <input type="checkbox" className="checkbox"/>
-                    </th>
+                        showCheckbox && <th>
+                            <input type="checkbox" className="checkbox"/>
+                        </th>
                     }
-                   
+
                     {Object.keys(initialData[0])
                         .slice(0, -1)
                         .map((key, index) => (
@@ -136,21 +137,28 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
                 <tbody>
                 {invoices.map((invoice, index) => (
                     <tr key={index}>
-                         {
-                        showCheckbox &&  <td>
-                        <input
-                            type="checkbox"
-                            checked={invoice.checked}
-                            onChange={() => handleCheckboxChange(index)}
-                        />
-                    </td>
-                    }
-                        
+                        {
+                            showCheckbox && <td>
+                                <input
+                                    type="checkbox"
+                                    checked={invoice.checked}
+                                    onChange={() => handleCheckboxChange(index)}
+                                />
+                            </td>
+                        }
+
                         {Object.keys(invoice)
                             .slice(0, -1)
                             .map((key, cellIndex) => (
                                 <td key={cellIndex}>
-                                    {cellIndex !== Object.keys(invoice).length - 1 && invoice[key as keyof typeof invoice]}
+                                    {
+                                        cellIndex === 0 ?
+                                            <Link className={'text-black text-decoration-none'}
+                                                  to={`/invoices/detail`}>{invoice[key as keyof typeof invoice]}</Link>
+                                            :
+
+                                            cellIndex !== Object.keys(invoice).length - 1 && <>{invoice[key as keyof typeof invoice]}</>}
+
                                 </td>
                             ))}
                     </tr>
