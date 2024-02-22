@@ -78,7 +78,7 @@ const Invoice: React.FC<InvoiceProps> = ({setIsShow}) => {
                                 key={index}
                                 className={"text-decoration-none col-4"}
                             >
-                                <li className={"navbar-link fw-bold p-md justify-content-center"}>
+                                <li className={"navbar-link fw-medium p-md justify-content-center"}>
                                     <img
                                         src={tab.icon(location.pathname === tab.link)}
                                         alt={tab.name}

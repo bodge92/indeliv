@@ -122,7 +122,7 @@ const InvoiceTable: React.FC<CollectionsProps> = ({initialData, showDropdown, sh
                     {Object.keys(initialData[0])
                         .slice(0, -1)
                         .map((key, index) => (
-                            <th key={index}>
+                            <th key={index} className={'fw-medium'}>
                                 {key.charAt(0).toUpperCase() + key.slice(1)}
                                 {showDropdown && index !== Object.keys(initialData[0]).length - 2 && (
                                     <div className="dropdown">

@@ -78,7 +78,7 @@ d-none d-md-block
                     {menus.map((menu, index) => (
                         <li key={index} className="nav-item">
                             <NavLink
-                                className="nav-link d-flex sidebar-link fw-bold justify-content-between"
+                                className="nav-link  d-flex sidebar-link fw-medium justify-content-between"
                                 to={menu.link}
                             >
                                 <div

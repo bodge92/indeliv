@@ -44,8 +44,12 @@ const InVoicesCard: React.FC<CollectionsProps> = ({initialData, showCheckbox = t
             <div className="card-body">
                 <div className="d-flex justify-content-between align-items-s gap-2">
                     <div className="d-flex flex-column justify-content-between gap-2">
-                        <div className={`d-flex justify-content-start`}>
-                            <div className="custom-control custom-checkbox m-0">
+                        <div className={`d-flex justify-content-start align-items-center`}>
+                            <div className="custom-control custom-checkbox m-0"
+                                style={{
+                                    display: showCheckbox ? "block" : "none",
+                                }}
+                            >
                                 {
                                     showCheckbox && (
                                         <input
@@ -62,7 +66,7 @@ const InVoicesCard: React.FC<CollectionsProps> = ({initialData, showCheckbox = t
                                     htmlFor={`checkbox`}
                                 ></label>
                             </div>
-                            <b className="custom-control-label"
+                            <b className="custom-control-label fw-medium text-12"
                                style={{
                                    marginLeft: showCheckbox ? "10px" : "0",
                                }}
@@ -72,7 +76,7 @@ const InVoicesCard: React.FC<CollectionsProps> = ({initialData, showCheckbox = t
                     </div>
                     <div className="d-flex flex-column justify-content-between gap-2">
                         <Link
-                            className="text-12 fw-bold m-0"
+                            className="text-12 fw-bold m-0 fw-medium"
                             style={{color: "#0080FC"}}
                             to={"/dashboard/invoices/details"}
                         >
@@ -85,24 +89,24 @@ const InVoicesCard: React.FC<CollectionsProps> = ({initialData, showCheckbox = t
                 <div className="d-flex justify-content-start">
                     <div className={`w-100 ${isChecked ? "border-end border-white" : "border-end border-gray"}`}>
                         <p className="text-gray text-center m-0 text-12">Company</p>
-                        <p className="text-center fw-bold text-black m-0 text-12">{company}</p>
+                        <p className="text-center fw-medium text-black m-0 text-12">{company}</p>
                     </div>
                     {due && (
                         <div className={`w-100 ${isChecked ? "border-end border-white" : "border-end border-gray"}`}>
                             <p className="text-gray text-center m-0 text-12">Due</p>
-                            <p className="text-center fw-bold text-black m-0 text-12">{due}</p>
+                            <p className="text-center fw-medium text-black m-0 text-12">{due}</p>
                         </div>
                     )}
                     <div
                         className={`w-100 ${isChecked && due ? "border-end border-white" : due ? "border-end border-active" : "border-none"}`}
                     >
                         <p className="text-gray text-center m-0 text-12">Date</p>
-                        <p className="text-center fw-bold text-black m-0 text-12">{date}</p>
+                        <p className="text-center fw-medium text-black m-0 text-12">{date}</p>
                     </div>
                     {overdueBy && (
                         <div className="w-100">
                             <p className="text-gray text-center m-0 text-12">Overdue By</p>
-                            <p className="text-center fw-bold text-black m-0 text-12">{overdueBy}</p>
+                            <p className="text-center fw-medium text-black m-0 text-12">{overdueBy}</p>
                         </div>
                     )}
                 </div>
