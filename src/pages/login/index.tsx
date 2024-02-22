@@ -25,7 +25,7 @@ const Login = () => {
             </p>
           </div>
           <form className='form d-flex flex-column'>
-            <div className='form-group '>
+            <div className='form-group custom-form-group form-group d-flex flex-column'>
               <label className='custom-label' htmlFor='exampleInputEmail1'>
                 Name /Email
               </label>
@@ -38,7 +38,7 @@ const Login = () => {
               />
             </div>
             <div className='form-group'>
-              <div className='password-input-container position-relative'>
+              <div className='password-input-container custom-form-group form-group d-flex flex-column position-relative'>
                 <label className='custom-label' htmlFor='exampleInputPassword1'>
                   Password
                 </label>
