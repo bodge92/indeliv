@@ -56,7 +56,7 @@ const Login = () => {
               </div>
             </div>
             <div className='custom-form-group  d-flex justify-content-between align-items-center mx-0 px-0'>
-              <div className='d-flex gap-2 '>
+              <div className='d-flex align-items-center gap-2 '>
                 <input
                   type='checkbox'
                   className='custom-checkbox m-0'
@@ -73,11 +73,11 @@ const Login = () => {
                 Forgot password?
               </a>
             </div>
-          </form>
-          <div className='d-flex align-items-center flex-column text-center'>
             <button type='button' className='custom-btn-log rounded   '>
               Log in
             </button>
+          </form>
+          <div style={{gap: '12px'}} className='d-flex align-items-center flex-column text-center'>
             <div
               style={{ width: '90%' }}
               className=' d-none d-lg-flex align-items-center justify-content-center or-separator d-block text-center m-3 '
