@@ -49,6 +49,8 @@ const Collections: React.FC = () => {
         );
     });
 
+    const ids = useSelector((state: RootState) => state.batch);
+
 
     return (
         <>
@@ -81,9 +83,11 @@ const Collections: React.FC = () => {
                     <div
                         className={"number-selected"}
                     >
-                            <span>
+                            <span
+                                className={"text-center"}
+                            >
                                 {
-                                    filteredInvoices.map((invoice) => invoice.checked).filter(Boolean).length
+                                    ids.selectedBatchCollectionIds.length
                                 }
                             </span>
                     </div>

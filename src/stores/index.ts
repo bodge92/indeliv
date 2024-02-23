@@ -2,12 +2,14 @@ import {configureStore} from '@reduxjs/toolkit';
 import authTokenSlice, {resetToken} from './slices/authTokenSlice';
 import userSlice, {resetUser} from './slices/userSlice';
 import searchSlice from "@/stores/slices/searchSlice";
+import batchSlice from "@/stores/slices/batchSlice";
 
 export const store = configureStore({
     reducer: {
         authToken: authTokenSlice,
         user: userSlice,
         search: searchSlice,
+        batch: batchSlice,
     },
 });
 

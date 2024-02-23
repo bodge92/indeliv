@@ -1,15 +1,38 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {
     CollectionInterface,
     CompletedInterface,
     DeliveryInterface,
     SortDirection,
 } from "@components/custom/InvoiceTable";
+import {RootState} from "@/stores";
+import {useSelector, useDispatch} from "react-redux";
+import {toggleBatchCollectionSelection, toggleBatchDeliverySelection} from "@/stores/slices/batchSlice";
 
 interface CollectionsProps {
     initialData: CollectionInterface | CompletedInterface | DeliveryInterface;
     showCheckbox?: boolean;
+}
+
+const Highlighter: React.FC<{ search: string; text: string }> = ({search, text}) => {
+
+    const searchIndex = text.toLowerCase().indexOf(search.toLowerCase());
+    if (searchIndex === -1) {
+        return <>{text}</>;
+    }
+    const before = text.slice(0, searchIndex);
+    const match = text.slice(searchIndex, searchIndex + search.length);
+    const after = text.slice(searchIndex + search.length);
+    return (
+        <>
+            {before}
+            <span style={{
+                color: "#0080FC",
+            }}>{match}</span>
+            {after}
+        </>
+    );
 }
 
 const InVoicesCard: React.FC<CollectionsProps> = ({initialData, showCheckbox = true}) => {
@@ -23,11 +46,22 @@ const InVoicesCard: React.FC<CollectionsProps> = ({initialData, showCheckbox = t
         checked,
         overdueBy,
     } = initialData;
-
+    const {query} = useSelector((state: RootState) => state.search);
     const [isChecked, setIsChecked] = useState(checked);
-
+    const location = useLocation();
+    const dispatch = useDispatch();
     const handleCheckboxChange = () => {
-        setIsChecked(!isChecked);
+        const path = location.pathname;
+
+        if (path.includes("invoices/deliveries")) {
+            setIsChecked(!isChecked);
+            dispatch(toggleBatchDeliverySelection(initialData.invoiceNo));
+        }
+
+        if (path.includes("invoices/collections")) {
+            setIsChecked(!isChecked);
+            dispatch(toggleBatchCollectionSelection(initialData.invoiceNo));
+        }
     };
 
 
@@ -46,9 +80,9 @@ const InVoicesCard: React.FC<CollectionsProps> = ({initialData, showCheckbox = t
                     <div className="d-flex flex-column justify-content-between gap-2">
                         <div className={`d-flex justify-content-start align-items-center`}>
                             <div className="custom-control custom-checkbox m-0"
-                                style={{
-                                    display: showCheckbox ? "block" : "none",
-                                }}
+                                 style={{
+                                     display: showCheckbox ? "block" : "none",
+                                 }}
                             >
                                 {
                                     showCheckbox && (
@@ -70,9 +104,19 @@ const InVoicesCard: React.FC<CollectionsProps> = ({initialData, showCheckbox = t
                                style={{
                                    marginLeft: showCheckbox ? "10px" : "0",
                                }}
-                            >{invoiceNo}</b>
+                            >
+                                <Highlighter
+                                    search={query}
+                                    text={invoiceNo}
+                                />
+                            </b>
                         </div>
-                        <p className="text-color m-0">{buyer}</p>
+                        <p className="text-color m-0">
+                            <Highlighter
+                                search={query}
+                                text={buyer}
+                            />
+                        </p>
                     </div>
                     <div className="d-flex flex-column justify-content-between gap-2">
                         <Link
